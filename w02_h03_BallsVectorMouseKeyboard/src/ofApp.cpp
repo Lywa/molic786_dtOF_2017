@@ -46,6 +46,8 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     
+    // using '+' key we add a new rectangle
+    
     if ( key == '+'){
         
         Ball tempBall;					// create a temporary ball
@@ -55,12 +57,16 @@ void ofApp::keyPressed(int key){
     
     }
     
+    
+     // using '-' key we erase one rectangle, in this case the first element of the vector
     if ( key == '-'){
         
         balls.erase(balls.begin());
         
     }
     
+    
+    // using 'e' key we erase all the rectangles, the clear refers to the size of the vector, which now is 0.
     if ( key == 'e'){
         
         balls.clear();
@@ -90,12 +96,16 @@ void ofApp::mouseDragged(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
+    
+    // pressing the mouse we can see a black bg
 
     ofBackground(0);
 }
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
+    
+    // Releasing the mouse we can see a white bg again++
     ofBackground(255);
 }
 
