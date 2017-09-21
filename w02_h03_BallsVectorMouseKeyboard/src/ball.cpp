@@ -21,10 +21,10 @@ Ball::Ball(){
     ofSetCircleResolution(50);
     ofEnableAntiAliasing();
     
-    x = ofRandom(radius, ofGetWidth()  - radius);
-    y = ofRandom(radius, ofGetHeight() - radius);
-    w = ofRandom(radius, ofGetWidth()  - radius);
-    z = ofRandom(radius, ofGetHeight() - radius);
+    x = ofRandom(0, ofGetWidth()/2);
+    y = ofRandom(0, ofGetHeight()/2);
+    w = ofRandom(0, ofGetWidth()/2);
+    z = ofRandom(0, ofGetHeight()/2);
     
     
     // random x and y speeds/directions between -5 and 5
@@ -42,14 +42,14 @@ void Ball::update(){
     
     
     
-    if (x<=radius || x>= ofGetWidth()-radius){
+    if (x<=0 || x>= ofGetWidth()-w){
         
         dirX=-1*dirX;
         
     }
     
     
-    if (y<=radius || y>= ofGetHeight()-radius){
+    if (y<=0 || y>= ofGetHeight()-z){
         
         dirY=-1*dirY;
         
