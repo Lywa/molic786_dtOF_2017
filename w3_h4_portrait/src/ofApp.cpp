@@ -3,9 +3,12 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    ofSetWindowShape(600, 800);
+    
+    
    // color = ofColor(red,green, blue, alpha);
     
-
+    
     ofBackground(255);
     
     //float red=0;
