@@ -4,7 +4,7 @@
 void ofApp::setup(){
     
     
-    ofSetWindowShape(600, 800);
+    ofSetWindowShape(600, 750);
     
     ofBackground(255);
     
@@ -54,23 +54,32 @@ void ofApp::setup(){
 void ofApp::update(){
     
     
-    // make a ball follow the mouse
+//    // make a ball follow the mouse
+//    
+//    ofVec2f mouse;
+//    mouse.x = ofGetMouseX();
+//    mouse.y = ofGetMouseY();
+//    
+//    float pct = .05; // every frame move ball 5% towards the mouse
+//    
+//    
+//    
+//    
+//    // change the ball brightness with distance
+//    
+//   // float dist = mouse.distance();
+//    
+//    // as distance increases, brightness increases:
+//    alpha = ofMap(mouse.x, 0, 500, 50, 255);
+//    cout << alpha << endl;
     
-    ofVec2f mouse;
-    mouse.x = ofGetMouseX();
-    mouse.y = ofGetMouseY();
-    
-    float pct = .05; // every frame move ball 5% towards the mouse
-    
-    
-    
-    
-    // change the ball brightness with distance
-    
-    //float dist = mouse.distance(grid);
-    
-    // as distance increases, brightness increases:
-    //alpha = ofMap(dist, 0, 500, 50, 255);
+    for (int i=0; i<grid.size();i++){
+        
+        
+        
+        grid[i].update();
+        
+    }
 
 }
 
