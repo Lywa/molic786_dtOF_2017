@@ -20,7 +20,7 @@ public:
     ofColor color;
     float x, y;
     float alpha;
-   
+    //int colorArray[180][4];
     
 };
 
