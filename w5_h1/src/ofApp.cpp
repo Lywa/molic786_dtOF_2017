@@ -29,9 +29,13 @@ void ofApp::update(){
     float MousePosY = ofGetMouseY();
  
     posX += 5.5+x;
-    amplitude += 0.3;
+    //amplitude += 0.3;
     
     
+    //Use mouse to change the amplitude of the waves
+    amplitude = ofMap(MousePosX, 0, ofGetWidth(), 0,300);
+    
+    radius= ofMap(MousePosY,0,ofGetHeight(),0,400);
     
     
     // Calculate posY using cos
