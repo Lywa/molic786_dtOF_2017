@@ -6,9 +6,27 @@
 //
 //
 
-#ifndef tail_hpp
-#define tail_hpp
 
-#include <stdio.h>
+#pragma once
+#include "ofMain.h"
 
-#endif /* tail_hpp */
+class Tail {
+    
+public:
+    
+    Tail();
+    ~Tail(){}
+    
+    Tail(ofVec3f _pos, float _mass);
+    
+    void applyForce(ofVec3f force);
+    void applyDampingForce(float force);
+    
+    void update();
+    void draw();
+    
+    
+    ofVec3f pos, vel, acc;
+    float mass;
+    
+};

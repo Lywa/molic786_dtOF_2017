@@ -38,6 +38,9 @@ void Firework::update(){
     
     lastUpdateTime = ofGetElapsedTimef();
     
+    tail.update();
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -50,6 +53,8 @@ void Firework::draw(){
         systems[i].draw();
     }
     
+    tail.draw();
+    
 }
 
 
@@ -59,4 +64,10 @@ void Firework::mouseReleased(int x, int y, int button){
     systems.push_back( ParticleSystem(ofVec2f(x,y)) );	// construct new particle system
     
 }
+void Firework::applyForce(ofVec3f force){
+
+    tail.applyDampingForce(<#float force#>)
+}
+
+
 

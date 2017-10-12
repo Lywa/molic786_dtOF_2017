@@ -11,6 +11,8 @@ void ofApp::setup(){
 void ofApp::update(){
     
     firework.update();
+    
+    
 }
 
 //--------------------------------------------------------------

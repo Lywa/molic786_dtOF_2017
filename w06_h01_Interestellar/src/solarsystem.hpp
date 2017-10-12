@@ -10,6 +10,7 @@
 #pragma once
 #include "ofMain.h"
 #include "planet.hpp"
+#include "asteroids.hpp"
 
 class SolarSystem{
     
@@ -28,10 +29,6 @@ public:
     Planet planet2;
     Planet planet3;
     Planet planet4;
-    
-
-    
-    
     
     
     

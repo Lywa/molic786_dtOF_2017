@@ -10,6 +10,7 @@
 
 #include "ofMain.h"
 #include "Particlesystem.hpp"
+#include "tail.hpp"
 
 class Firework {
 public:
@@ -27,6 +28,8 @@ public:
     ofVec3f gravity;
     
     float lastUpdateTime;	// track frame-by-frame time diff
+    Tail tail;
+    void applyForce(ofVec3f force);
 
 };
 

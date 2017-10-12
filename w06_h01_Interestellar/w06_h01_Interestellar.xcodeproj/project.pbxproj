@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C31590F91F90100F008E5773 /* asteroids.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C31590F71F90100F008E5773 /* asteroids.cpp */; };
 		C34CEBDA1F8EF723008A6486 /* solarsystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C34CEBD81F8EF723008A6486 /* solarsystem.cpp */; };
 		C34CEBDC1F8EFA4F008A6486 /* planet.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C34CEBDB1F8EFA4F008A6486 /* planet.cpp */; };
 		C34CEBE21F8F15E1008A6486 /* mover.cpp in Sources */ = {isa = PBXBuildFile; fileRef = C34CEBE01F8F15E1008A6486 /* mover.cpp */; };
@@ -45,6 +46,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		C31590F71F90100F008E5773 /* asteroids.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = asteroids.cpp; sourceTree = "<group>"; };
+		C31590F81F90100F008E5773 /* asteroids.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = asteroids.hpp; sourceTree = "<group>"; };
 		C34CEBD41F8EF2B2008A6486 /* planet.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = planet.hpp; sourceTree = "<group>"; };
 		C34CEBD81F8EF723008A6486 /* solarsystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = solarsystem.cpp; sourceTree = "<group>"; };
 		C34CEBD91F8EF723008A6486 /* solarsystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = solarsystem.hpp; sourceTree = "<group>"; };
@@ -120,6 +123,8 @@
 				C34CEBD41F8EF2B2008A6486 /* planet.hpp */,
 				C34CEBE01F8F15E1008A6486 /* mover.cpp */,
 				C34CEBE11F8F15E1008A6486 /* mover.hpp */,
+				C31590F71F90100F008E5773 /* asteroids.cpp */,
+				C31590F81F90100F008E5773 /* asteroids.hpp */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -220,6 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C31590F91F90100F008E5773 /* asteroids.cpp in Sources */,
 				E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */,
 				C34CEBDA1F8EF723008A6486 /* solarsystem.cpp in Sources */,
 				E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */,

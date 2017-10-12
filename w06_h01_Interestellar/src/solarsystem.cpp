@@ -8,6 +8,7 @@
 
 #include "solarsystem.hpp"
 
+
 SolarSystem::SolarSystem() {}
 
 void SolarSystem::setup(){
@@ -35,10 +36,14 @@ void SolarSystem::setup(){
     planet4.setup();
     
     
+
 }
 
 void SolarSystem::update(){
     
+    
+    
+        
 }
 
 
@@ -48,5 +53,11 @@ void SolarSystem::draw(){
     planet2.draw();
     planet3.draw();
     planet4.draw();
+    
+  
+
 }
+
+
+
 

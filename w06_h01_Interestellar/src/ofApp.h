@@ -4,6 +4,7 @@
 #include "solarsystem.hpp"
 #include "planet.hpp"
 #include "mover.hpp"
+#include "asteroids.hpp"
 
 class ofApp : public ofBaseApp{
 
@@ -28,5 +29,22 @@ class ofApp : public ofBaseApp{
         SolarSystem solarsystem;
     
         vector<Mover> movers;
+    
+    
+    
+        void drawBlackholes();
+        void drawAsteroids();
+    
+        void relocateAsteroids();
+    
+        vector<Asteroids> asteroids;
+        Asteroids blackhole;
+        int numAsteroids = 15;
+    
+        bool blackHoleOpen;
+    
+    
+    
+    
     
 };
