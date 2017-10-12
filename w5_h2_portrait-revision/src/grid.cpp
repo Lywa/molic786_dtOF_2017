@@ -68,6 +68,20 @@ void Grid::changeSquareAlphaAt(float x_, float y_){
     sq_x = floor(x_ / 50);
     sq_y = floor(y_ / 50);
     
+    
+    sq_y = MAX(sq_y,0);
+    sq_x = MAX(sq_x,0);
+    
+    if (sq_y >= pixels.size()){
+    
+        sq_y= pixels.size()-1;
+    }
+    if (sq_x > pixels[0].size()){
+    
+        sq_x =pixels[0].size()-1;
+    };
+    
+    
     for (int s=0;s<pixels.size(); s+=1) {
         for(int sq = 0; sq<pixels[s].size(); sq+=1) {
             pixels[s][sq].color.a = 255;
