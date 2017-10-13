@@ -50,7 +50,9 @@ void ofApp::mousePressed(int x, int y, int button){
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
     
-    firework.mouseReleased(x,y, button);
+        firework.mouseReleased(x,y, button);
+    
+    //firework.setFinalPosition(x,y);
 }
 
 //--------------------------------------------------------------

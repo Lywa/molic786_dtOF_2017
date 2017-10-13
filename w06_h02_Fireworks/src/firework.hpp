@@ -21,7 +21,7 @@ public:
     void update(ofVec3f force, float timeDiff);
     void draw();
     void mouseReleased(int x, int y, int button);
-
+    void setFinalPosition(int x, int y);
     
     
     vector<ParticleSystem> systems;

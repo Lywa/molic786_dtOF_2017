@@ -46,7 +46,7 @@ void Firework::update(){
 //--------------------------------------------------------------
 void Firework::draw(){
     
-    ofBackgroundGradient(ofColor::pink, ofColor::goldenRod);
+    ofBackgroundGradient(ofColor::skyBlue, ofColor::black);
     
     for (int i=0; i<systems.size(); i++)
     {
@@ -57,6 +57,13 @@ void Firework::draw(){
     
 }
 
+void Firework::setFinalPosition(int x, int y) {
+    //set attraction point
+    
+    
+
+    
+}
 
 //--------------------------------------------------------------
 void Firework::mouseReleased(int x, int y, int button){
@@ -65,8 +72,7 @@ void Firework::mouseReleased(int x, int y, int button){
     
 }
 void Firework::applyForce(ofVec3f force){
-
-    tail.applyDampingForce(<#float force#>)
+    
 }
 
 

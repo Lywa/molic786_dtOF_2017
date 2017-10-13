@@ -11,15 +11,15 @@
 
 Particle::Particle()
 {
-    lifespan = 3.; // seconds
+    lifespan = 1.; // seconds
 }
 
 Particle::Particle(ofVec3f _pos)
 {
     pos = _pos;
-    vel.x = ofRandom(-2, 2);
+    vel.x = ofRandom(-4, 4);
     vel.y = ofRandom(-1, -5);
-    lifespan = 3.;
+    lifespan = 1.;
 }
 
 void Particle::applyForce(ofVec3f force){
@@ -38,9 +38,10 @@ void Particle::update(float timeDiff){ // how much time has passed since last fr
 void Particle::draw(){
     ofPushStyle();
     float hue = ofMap(lifespan, 0., 3., 0, 255);
-    ofSetColor(ofColor::fromHsb(hue,hue,hue));
-    
-    ofDrawCircle(pos, 5);
+    //ofSetColor(ofColor::fromHsb(hue,hue,hue));
+    ofSetColor(ofColor(255));
+    ofDrawRectangle(pos.x, pos.y, 1, 2);
+    ofDrawCircle(pos, 1);
     ofPopStyle();
 }
 

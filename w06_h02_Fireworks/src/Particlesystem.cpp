@@ -11,7 +11,7 @@
 
 ParticleSystem::ParticleSystem(ofVec3f _pos){
     pos = _pos;
-    lifespan = 10.;
+    lifespan = 2.;
 }
 
 void ParticleSystem::update(ofVec3f force, float timeDiff){ // time elapsed since last frame
@@ -32,7 +32,7 @@ void ParticleSystem::update(ofVec3f force, float timeDiff){ // time elapsed sinc
     }
     
     // erase particles until we have a manageable size
-    while (particles.size() > 1000){
+    while (particles.size() > 10000){
         particles.erase(particles.begin());
     }
     

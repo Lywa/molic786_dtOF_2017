@@ -24,9 +24,14 @@ public:
     
     void update();
     void draw();
-    
+    void getfinalposition(ofVec3f posf);
     
     ofVec3f pos, vel, acc;
     float mass;
+    
+    ofVec3f pos0;
+    
+    ofVec3f v0;
+    ofVec3f vf;
     
 };

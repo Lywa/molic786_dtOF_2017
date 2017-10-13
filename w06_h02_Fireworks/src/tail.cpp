@@ -10,10 +10,10 @@
 
 Tail::Tail()
 {
-    pos.x = ofRandom(ofGetWidth());
-    pos.y = ofRandom(ofGetHeight());
+    pos0.x = ofGetWidth()/2;
+    pos0.y = ofGetHeight();
     
-    mass = ofRandom(5,10);
+    mass = ofRandom(10);
 }
 
 Tail::Tail(ofVec3f _pos, float _mass){
@@ -27,6 +27,7 @@ void Tail::applyForce(ofVec3f force)
     // acc = force / mass
     
     acc += force/mass;
+    
 }
 
 void Tail::applyDampingForce(float force)
@@ -37,6 +38,14 @@ void Tail::applyDampingForce(float force)
     // no matter what our velocity's magnitude (speed)
     
 }
+
+void Tail::getfinalposition( ofVec3f posf){
+    
+    
+    
+
+}
+
 
 void Tail::update()
 {
