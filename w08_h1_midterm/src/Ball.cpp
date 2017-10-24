@@ -52,7 +52,7 @@ void Ball::update() {
         dirY = -dirY;
     }
     
-    drawLines();
+ drawLines();
 }
 
 

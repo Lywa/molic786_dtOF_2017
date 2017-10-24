@@ -6,7 +6,7 @@ void ofApp::setup(){
     ofSetBackgroundAuto(false);
     ofBackground(0);
     
-    int numBalls = 10;
+    int numBalls = 15;
     
     // fill our vector
     for (int i = 0; i < numBalls; i++) {
@@ -191,8 +191,10 @@ void ofApp::mouseDragged(int x, int y, int button){
 void ofApp::mousePressed(int x, int y, int button){
     for (int i=0; i<balls.size(); i++)
     {
-        balls[i].x =  ofGetMouseX();
-        balls[i].y =  ofGetMouseY();
+//        balls[i].x =  ofGetMouseX();
+//        balls[i].y =  ofGetMouseY();
+        
+        balls[i].color.set(ofRandom(0,255),ofRandom(0,255),ofRandom(0,255));
         
     }
 }
