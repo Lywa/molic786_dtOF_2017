@@ -3,9 +3,10 @@
 //--------------------------------------------------------------
 void ofApp::setup(){
     
+    ofSetBackgroundAuto(false);
     ofBackground(0);
     
-    int numBalls = 5;
+    int numBalls = 10;
     
     // fill our vector
     for (int i = 0; i < numBalls; i++) {
@@ -47,9 +48,9 @@ void ofApp::draw(){
     
     
     
-    int nCols = 5;
+    int nCols = 10;
     // int nCols = 10;
-    int nRows = 12;
+    int nRows = 10;
     // int nRows
     
     // grid square size for drawing:
@@ -76,6 +77,99 @@ void ofApp::draw(){
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     
+    if ( key == '+'){
+        
+        Ball tempBall;                    // create a temporary ball
+        balls.push_back(tempBall);        // copy the temporary ball into the balls vector
+        // (push_back() adds the ball to the end of the vector, increasing the vector's size by 1)
+        
+        
+    }
+    
+    // using '-' key we erase one rectangle, in this case the first element of the vector
+    if ( key == '-'){
+        
+        balls.erase(balls.begin());
+        
+    }
+    
+    if ( key == '1'){
+        
+        for (int i=0; i<balls.size(); i++)
+        {
+            balls[i].radius =  0;
+            
+        }
+        
+    }
+    
+    if ( key == '2'){
+        
+        for (int i=0; i<balls.size(); i++)
+        {
+            balls[i].radius =  50;
+            
+        }
+        
+    }
+    
+    if ( key == '3'){
+        
+        for (int i=0; i<balls.size(); i++)
+        {
+            balls[i].radius =  100;
+            
+        }
+        
+    }
+    
+    if ( key == '4'){
+        
+        for (int i=0; i<balls.size(); i++)
+        {
+            balls[i].radius =  150;
+            
+        }
+        
+    }
+    if ( key == '5'){
+        
+        for (int i=0; i<balls.size(); i++)
+        {
+            balls[i].radius =  200;
+            
+        }
+        
+    }
+    
+    if ( key == '6'){
+        
+        for (int i=0; i<balls.size(); i++)
+        {
+            balls[i].radius =  250;
+            
+        }
+        
+    }
+    if ( key == '7'){
+        
+        for (int i=0; i<balls.size(); i++)
+        {
+            balls[i].radius =  300;
+            
+        }
+        
+    }
+    
+    if ( key == '8'){
+        
+        for (int i=0; i<balls.size(); i++)
+        {
+            balls[i].radius =  350;
+            
+        }
+        
+    }
 }
 
 //--------------------------------------------------------------
@@ -90,12 +184,17 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-    
+   
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
-    
+    for (int i=0; i<balls.size(); i++)
+    {
+        balls[i].x =  ofGetMouseX();
+        balls[i].y =  ofGetMouseY();
+        
+    }
 }
 
 //--------------------------------------------------------------

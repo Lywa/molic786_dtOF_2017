@@ -17,7 +17,7 @@ public:        // other classes can access the following functions & variables:
     
     void update();
     void draw();
-    
+    void drawLines();
     
     float radius;        // size
     float x, y;            // position
