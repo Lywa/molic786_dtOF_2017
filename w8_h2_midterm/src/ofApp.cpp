@@ -13,7 +13,7 @@ void ofApp::setup(){
     flowField.initNoise(0.1);
     
     // make a bunch of particles
-    for (int i=0; i<10; i++){
+    for (int i=0; i<50; i++){
         
         Particle p;
         p.pos.x = ofRandom(0, ofGetWidth());

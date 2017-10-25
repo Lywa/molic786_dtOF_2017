@@ -33,9 +33,14 @@ void ofApp::draw(){
     // now, take a "screenshot" of the frame
     screenImage.grabScreen(0,0,ofGetWidth(),ofGetHeight());
     
-    // resize the screenshot to 10x10 pixels
+    // resize the screenshot to 10x10 pixelsçç
     
-    screenImage.resize(10,10);
+    int nCols = 5;
+    // int nCols = 10;
+    int nRows = 10;
+    // int nRows
+    
+    screenImage.resize(nCols,nRows);
     
     
     // sample colors from the screenshot, and draw as a grid overlay:
@@ -48,15 +53,21 @@ void ofApp::draw(){
     
     
     
-    int nCols = 10;
-    // int nCols = 10;
-    int nRows = 10;
-    // int nRows
+
     
     // grid square size for drawing:
     float width = ofGetWidth() / (float)nCols;
     float height = ofGetHeight() / (float)nRows;
     
+    serial.listDevices();
+    vector <ofSerialDeviceInfo> deviceList = serial.getDeviceList();
+    
+    int baud = 9600;
+    serial.setup(1, 9600); //open the first device and talk to it at 57600 baud
+    
+    serial.writeByte(1);
+//    serial.writeByte('G');
+//    serial.writeByte('B');
     
     for (int y=0; y<nRows; y++) {
         for (int x=0; x<nCols; x++) {
@@ -69,8 +80,20 @@ void ofApp::draw(){
             
             ofSetColor(color);
             ofDrawRectangle(x * width, y * height, width, height);
+            
+            /*
+             add serial data send code here
+             */
+//            int pixelNum = y * nCols + x;
+//            serial.write(pixelNum);
+            
+            
+serial.writeByte(color.r);
+serial.writeByte(color.g);
+serial.writeByte(color.b);
         }
     }
+     serial.writeByte(400);
     
 }
 
