@@ -1,6 +1,8 @@
 #include "ofApp.h"
 
 //--------------------------------------------------------------
+
+
 void ofApp::setup(){
     
     ofSetBackgroundAuto(false);
@@ -12,6 +14,14 @@ void ofApp::setup(){
     for (int i = 0; i < numBalls; i++) {
         balls.push_back(Ball());
     }
+    
+    serial.listDevices();
+    vector <ofSerialDeviceInfo> deviceList = serial.getDeviceList();
+    
+    int baud = 9600;
+    serial.setup(1, 9600); //open the first device and talk to it at 57600 baud
+    
+    
     
 }
 
@@ -53,21 +63,21 @@ void ofApp::draw(){
     
     
     
-
+    
     
     // grid square size for drawing:
     float width = ofGetWidth() / (float)nCols;
     float height = ofGetHeight() / (float)nRows;
     
-    serial.listDevices();
-    vector <ofSerialDeviceInfo> deviceList = serial.getDeviceList();
     
-    int baud = 9600;
-    serial.setup(1, 9600); //open the first device and talk to it at 57600 baud
+    //    serial.writeByte('G');
+    //    serial.writeByte('B');
     
-    serial.writeByte(1);
-//    serial.writeByte('G');
-//    serial.writeByte('B');
+//    serial.writeByte(0);
+//    serial.writeByte(255);
+//    serial.writeByte(0);
+//    serial.writeByte(0);
+//
     
     for (int y=0; y<nRows; y++) {
         for (int x=0; x<nCols; x++) {
@@ -84,16 +94,34 @@ void ofApp::draw(){
             /*
              add serial data send code here
              */
-//            int pixelNum = y * nCols + x;
-//            serial.write(pixelNum);
+            int pixelNum = y * nCols + x;
             
+            int r = color.r;
+            int g = color.g;
+            int b = color.b;
             
-serial.writeByte(color.r);
-serial.writeByte(color.g);
-serial.writeByte(color.b);
+            if (color.r > 254)
+                r = 254;
+            if (color.g > 254)
+                g = 254;
+            if (color.b > 254)
+                b = 254;
+            serial.writeByte(255);
+            serial.writeByte(pixelNum);
+            serial.writeByte(r);
+            serial.writeByte(g);
+            serial.writeByte(b);
+
+            
+            unsigned char byte_back = 0;
+            byte_back = serial.readByte();
+            if ( byte_back == OF_SERIAL_ERROR )
+                printf("an error occurred");
+            else
+                printf("arduino sent is %d", byte_back);
         }
     }
-     serial.writeByte(400);
+    //serial.writeByte(400);
     
 }
 
@@ -207,15 +235,15 @@ void ofApp::mouseMoved(int x, int y ){
 
 //--------------------------------------------------------------
 void ofApp::mouseDragged(int x, int y, int button){
-   
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::mousePressed(int x, int y, int button){
     for (int i=0; i<balls.size(); i++)
     {
-//        balls[i].x =  ofGetMouseX();
-//        balls[i].y =  ofGetMouseY();
+        //        balls[i].x =  ofGetMouseX();
+        //        balls[i].y =  ofGetMouseY();
         
         balls[i].color.set(ofRandom(0,255),ofRandom(0,255),ofRandom(0,255));
         
@@ -251,4 +279,3 @@ void ofApp::gotMessage(ofMessage msg){
 void ofApp::dragEvent(ofDragInfo dragInfo){
     
 }
-
