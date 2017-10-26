@@ -13,7 +13,7 @@
 //   NEO_GRB     Pixels are wired for GRB bitstream (most NeoPixel products)
 //   NEO_RGB     Pixels are wired for RGB bitstream (v1 FLORA pixels, not v2)
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
-Adafruit_NeoPixel strip = Adafruit_NeoPixel(60, PIN, NEO_BRG + NEO_KHZ800);
+Adafruit_NeoPixel strip = Adafruit_NeoPixel(50, PIN, NEO_BRG + NEO_KHZ800);
 
 char val; // Data received from the serial port
 

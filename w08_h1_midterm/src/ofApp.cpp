@@ -8,6 +8,10 @@ void ofApp::setup(){
     ofSetBackgroundAuto(false);
     ofBackground(0);
     
+    ofSetFrameRate(30);
+    ofSetVerticalSync(true);
+
+    
     int numBalls = 15;
     
     // fill our vector
