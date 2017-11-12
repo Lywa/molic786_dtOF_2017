@@ -60,6 +60,7 @@ void ofApp::update(){
         // grab the pixels to read color
         ofPixels pix = slitScan.getPixels();
         
+       
         // loop through the mesh
         for (int i=0; i<mesh.getVertices().size(); i++)
         {
@@ -112,9 +113,11 @@ void ofApp::draw(){
     
     //    ofBackground(0, 0, 0);
     
-    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+    //ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     
     ofEnableBlendMode(blendMode);
+    
+   
     
     cam.begin();
     ofEnableDepthTest();
@@ -152,10 +155,21 @@ void ofApp::draw(){
     ofDisableDepthTest();
     cam.end();
     
-    ofDisableBlendMode();
+    
+    //Buffer screenshot
+    blendImage.begin();
     // now, take a "screenshot" of the frame
     screenImage.grabScreen(0,0,ofGetWidth(),ofGetHeight());
-    //    screenImage.save("screenshot.png");
+    screenImage.allocate(640, 480, OF_IMAGE_COLOR_ALPHA);
+    blendImage.end();
+    
+    ofColor(200,200,200,10);
+    ofDrawRectangle(300, 200, 100, 100);
+    blendImage.getTexture();
+    blendImage.draw(640, 480);
+    
+    ofDisableBlendMode();
+
     
     // on screen text
     stringstream ss;

@@ -54,6 +54,9 @@ public:
     
     ofImage screenImage; // store a "screenshot" of each frame
     
+    ofFbo blendImage;
+
+    
 };
 
 
