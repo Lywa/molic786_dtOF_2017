@@ -13,18 +13,18 @@ void ofApp::setup(){
     
     vid.listDevices();        // just prints all your video cameras to console
     
-    vid.setup(1024, 768);    // start default cam at 640x480
+    vid.setup(640,480);    // start default cam at 640x480
     
     // setup the slitscan object
     
-    slitScan = SlitScan(1024, 768);  // create slit scan
+    slitScan = SlitScan(640, 480);  // create slit scan
     
     // setup the mesh
     
-    mesh = ofMesh::plane(1024, 768, 128, 96);
+    mesh = ofMesh::plane(640, 480, 128, 96);
     
 //
-    eventString = "Substract";
+    eventString = "Add";
     blendMode = OF_BLENDMODE_ALPHA;
     
     

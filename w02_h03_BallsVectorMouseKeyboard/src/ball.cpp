@@ -54,6 +54,9 @@ void Ball::update(){
         dirY=-1*dirY;
         
     }
+    
+    
+    
 
 }
 

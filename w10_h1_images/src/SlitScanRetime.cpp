@@ -10,7 +10,7 @@
 
 
 SlitScanRetime::SlitScanRetime()
-: SlitScanRetime(1024,768)    // default call alternate constructor below
+: SlitScanRetime(640,480)    // default call alternate constructor below
 {}
 
 SlitScanRetime::SlitScanRetime( int w, int h )
@@ -19,7 +19,7 @@ SlitScanRetime::SlitScanRetime( int w, int h )
     height = h;
     
     // always pre-allocate FBOs
-    fbo.allocate( width, height );
+    fbo.allocate( width, height, OF_IMAGE_COLOR_ALPHA );
     
     lineNum = 100;
 }

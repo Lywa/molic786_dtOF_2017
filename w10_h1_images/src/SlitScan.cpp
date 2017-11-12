@@ -10,7 +10,7 @@
 
 
 SlitScan::SlitScan()
-: SlitScan(1024,768)    // default call alternate constructor below
+: SlitScan(640,480)    // default call alternate constructor below
 {}
 
 SlitScan::SlitScan( int w, int h )
@@ -19,7 +19,7 @@ SlitScan::SlitScan( int w, int h )
     height = h;
     
     // always pre-allocate FBOs
-    fbo.allocate( width, height );
+    fbo.allocate( width, height);
     
     lineNum = 0;
 }
