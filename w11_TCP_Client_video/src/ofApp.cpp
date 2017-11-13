@@ -4,9 +4,9 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    ofSetBackgroundColor(230, 230, 230);
+    ofSetBackgroundColor(20, 20, 20);
     
-    imgClient.load("imgClient.png");
+    imgClient.load("imgClient.jpg");
     
     
     // our send and recieve strings
@@ -29,7 +29,7 @@ void ofApp::update(){
     
     ofPixels pixelsClient = imgClient.getPixels();
     cout<< pixelsClient.getData() << endl;
-    //pixelsClient.allocate(640, 480, GL_RGBA);
+    //pixelsClient.allocate(640, 480, OF_IMAGE_COLOR);
     
     img.setFromPixels(pixelsClient);
     
@@ -55,12 +55,12 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
-    ofSetColor(20, 20, 20);
+    //ofSetColor(20, 20, 20);
     
+    //imgClient.draw(0,0,640,480);
+    img.draw(ofGetWidth()/2-640/2,ofGetHeight()/2-480/2,640,480);
     
-    img.draw(0,0,640,480);
-    
-    ofDrawBitmapString("openFrameworks TCP Send Example", 15, 30);
+    ofDrawBitmapString("openFrameworks TCP Send Image", 15, 30);
     
     if(tcpClient.isConnected()){
         if(!msgTx.empty()){
