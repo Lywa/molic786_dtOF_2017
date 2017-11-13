@@ -25,7 +25,7 @@ void ofApp::setup(){
     
 //
     eventString = "Add";
-    blendMode = OF_BLENDMODE_ALPHA;
+    blendMode = OF_BLENDMODE_ADD;
     
     
     
@@ -81,7 +81,7 @@ void ofApp::draw(){
     
 //    ofBackground(0, 0, 0);
     
-    ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+    //ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     
     ofEnableBlendMode(blendMode);
     

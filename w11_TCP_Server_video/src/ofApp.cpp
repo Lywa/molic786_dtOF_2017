@@ -9,6 +9,9 @@ void ofApp::setup(){
     TCP.setMessageDelimiter("\n");
     lastSent = 0;
     
+    
+    
+    
     // VIDEO
     
     ofBackground(0);

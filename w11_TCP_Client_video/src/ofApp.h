@@ -23,17 +23,25 @@ public:
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
     
+    
+    
     ofxTCPClient tcpClient;
     string msgTx, msgRx;
     
     ofTrueTypeFont  mono;
     ofTrueTypeFont  monosm;
     
+    ofImage imgClient;
+    ofImage imgServer;
+    ofImage img;
+    
     float counter;
     int connectTime;
     int deltaTime;
     
     int size;
+    
+    
 };
 
 

@@ -6,6 +6,9 @@
 void ofApp::setup(){
     ofSetBackgroundColor(230, 230, 230);
     
+    imgClient.load("imgClient.png");
+    
+    
     // our send and recieve strings
     msgTx    = "";
     msgRx    = "";
@@ -23,6 +26,13 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+    ofPixels pixelsClient = imgClient.getPixels();
+    cout<< pixelsClient.getData() << endl;
+    //pixelsClient.allocate(640, 480, GL_RGBA);
+    
+    img.setFromPixels(pixelsClient);
+    
     if(tcpClient.isConnected()){
         // we are connected - lets try to receive from the server
         string str = tcpClient.receive();
@@ -46,6 +56,10 @@ void ofApp::update(){
 void ofApp::draw(){
     
     ofSetColor(20, 20, 20);
+    
+    
+    img.draw(0,0,640,480);
+    
     ofDrawBitmapString("openFrameworks TCP Send Example", 15, 30);
     
     if(tcpClient.isConnected()){
