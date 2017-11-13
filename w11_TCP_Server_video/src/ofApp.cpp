@@ -94,6 +94,11 @@ void ofApp::update(){
     if(now - lastSent >= 100){
         for(int i = 0; i < TCP.getLastID(); i++){
             if( !TCP.isClientConnected(i) ) continue;
+            int clientId=TCP.getLastID();
+            
+            unsigned char tempBuff;
+          
+            TCP.receiveRawBytes(clientId,(char*)tempBuff, TCP.getNumReceivedBytes(clientId));
             
             TCP.send(i, "hello client - you are connected on port - "+ofToString(TCP.getClientPort(i)) );
         }
@@ -198,6 +203,11 @@ void ofApp::draw(){
     for(unsigned int i = 0; i < (unsigned int)TCP.getLastID(); i++){
         
         if( !TCP.isClientConnected(i) )continue;
+        
+        // print image:
+        ofPixels imgReceived;
+        
+        imgReceived.setFr
         
         // give each client its own color
         ofSetColor(255 - i*30, 255 - i * 20, 100 + i*40);

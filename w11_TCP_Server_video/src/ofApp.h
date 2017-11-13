@@ -25,6 +25,9 @@ public:
     void gotMessage(ofMessage msg);
     
     ofxTCPServer TCP;
+    ofxTCPClient tcpClient;
+    
+    char pixelsClient;
     
     ofTrueTypeFont  mono;
     ofTrueTypeFont  monosm;
@@ -55,6 +58,8 @@ public:
     ofImage screenImage; // store a "screenshot" of each frame
     
     ofFbo blendImage;
+    
+    
 
     
 };
