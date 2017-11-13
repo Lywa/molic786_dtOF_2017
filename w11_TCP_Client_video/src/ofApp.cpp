@@ -27,7 +27,7 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    ofPixels pixelsClient = imgClient.getPixels();
+    pixelsClient = imgClient.getPixels();
     cout<< pixelsClient.getData() << endl;
     //pixelsClient.allocate(640, 480, OF_IMAGE_COLOR);
     
@@ -35,6 +35,8 @@ void ofApp::update(){
     
     if(tcpClient.isConnected()){
         // we are connected - lets try to receive from the server
+       
+        
         string str = tcpClient.receive();
         if( str.length() > 0 ){
             msgRx = str;
@@ -63,6 +65,17 @@ void ofApp::draw(){
     ofDrawBitmapString("openFrameworks TCP Send Image", 15, 30);
     
     if(tcpClient.isConnected()){
+        
+        ofBuffer line_buffer;
+        ofSaveImage(pixelsClient, line_buffer);
+        char* rawBytes = line_buffer.getData();
+        
+        
+        // send to server
+        tcpClient.sendRawBytes(rawBytes, pixelsClient.getTotalBytes());
+        
+        
+        
         if(!msgTx.empty()){
             ofDrawBitmapString("sending:", 15, 55);
             ofDrawBitmapString(msgTx, 85, 55);

@@ -35,6 +35,8 @@ public:
     ofImage imgServer;
     ofImage img;
     
+    ofPixels pixelsClient;
+    
     float counter;
     int connectTime;
     int deltaTime;
