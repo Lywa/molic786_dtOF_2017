@@ -25,7 +25,7 @@ void ofApp::setup(){
     
 //
     eventString = "Add";
-    blendMode = OF_BLENDMODE_ADD;
+    blendMode = OF_BLENDMODE_SCREEN;
     
     
     
@@ -81,8 +81,11 @@ void ofApp::draw(){
     
 //    ofBackground(0, 0, 0);
     
-    //ofEnableBlendMode(OF_BLENDMODE_ALPHA);
+  
+    // Draw first lawer. Video (Local)
+    vid.draw(ofGetWidth()/2-640/2,ofGetHeight()/2-480/2,640,480);
     
+    //ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     ofEnableBlendMode(blendMode);
     
     cam.begin();

@@ -7,6 +7,8 @@ void ofApp::setup(){
     ofSetBackgroundColor(20, 20, 20);
     
     imgClient.load("imgClient.jpg");
+    imgClient.resize(320,240);
+    imgClient.setImageType(OF_IMAGE_COLOR);
     
     
     // our send and recieve strings
@@ -27,20 +29,48 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    pixelsClient = imgClient.getPixels();
-    cout<< pixelsClient.getData() << endl;
+//    pixelsClient = imgClient.getPixels();
+//    cout<< pixelsClient.getData() << endl;
     //pixelsClient.allocate(640, 480, OF_IMAGE_COLOR);
     
-    img.setFromPixels(pixelsClient);
+//    img.setFromPixels(pixelsClient);
+    
     
     if(tcpClient.isConnected()){
         // we are connected - lets try to receive from the server
+        
        
+//        RECEIVE / RX
+        
         
         string str = tcpClient.receive();
         if( str.length() > 0 ){
             msgRx = str;
         }
+        
+//        SEND / TX
+        
+//        ofBuffer line_buffer;
+//        ofSaveImage(imgClient.getPixels(), line_buffer);
+//        char* rawBytes = line_buffer.getData();
+//        tcpClient.sendRawBytes(rawBytes, pixelsClient.getTotalBytes());
+        
+        int size = imgClient.getPixels().getTotalBytes();
+        tcpClient.sendRawBytes((char*)(imgClient.getPixels().getData()), size);
+
+        
+        
+        
+        if(!msgTx.empty()){
+            ofDrawBitmapString("sending:", 15, 55);
+            ofDrawBitmapString(msgTx, 85, 55);
+        }else{
+            ofDrawBitmapString("status: type something to send data to port 11999", 15, 55);
+        }
+        ofDrawBitmapString("from server: \n" + msgRx, 15, 270);
+        
+        
+        
     }else{
         msgTx = "";
         // if we are not connected lets try and reconnect every 5 seconds
@@ -60,29 +90,13 @@ void ofApp::draw(){
     //ofSetColor(20, 20, 20);
     
     //imgClient.draw(0,0,640,480);
-    img.draw(ofGetWidth()/2-640/2,ofGetHeight()/2-480/2,640,480);
+    imgClient.draw(ofGetWidth()/2-640/2,ofGetHeight()/2-480/2,640,480);
     
     ofDrawBitmapString("openFrameworks TCP Send Image", 15, 30);
     
     if(tcpClient.isConnected()){
         
-        ofBuffer line_buffer;
-        ofSaveImage(pixelsClient, line_buffer);
-        char* rawBytes = line_buffer.getData();
-        
-        
-        // send to server
-        tcpClient.sendRawBytes(rawBytes, pixelsClient.getTotalBytes());
-        
-        
-        
-        if(!msgTx.empty()){
-            ofDrawBitmapString("sending:", 15, 55);
-            ofDrawBitmapString(msgTx, 85, 55);
-        }else{
-            ofDrawBitmapString("status: type something to send data to port 11999", 15, 55);
-        }
-        ofDrawBitmapString("from server: \n" + msgRx, 15, 270);
+
     }else{
         ofDrawBitmapString("status: server not found. launch server app and check ports!\n\nreconnecting in "+ofToString( (5000 - deltaTime) / 1000 )+" seconds", 15, 55);
     }

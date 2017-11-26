@@ -94,18 +94,20 @@ void ofApp::update(){
     if(now - lastSent >= 100){
         for(int i = 0; i < TCP.getLastID(); i++){
             if( !TCP.isClientConnected(i) ) continue;
-            int clientId=TCP.getLastID();
             
-            unsigned char tempBuff;
+           
           
-            TCP.receiveRawBytes(clientId,(char*)tempBuff, TCP.getNumReceivedBytes(clientId));
+           
             
             TCP.send(i, "hello client - you are connected on port - "+ofToString(TCP.getClientPort(i)) );
         }
         lastSent = now;
     }
-    
-    
+   
+    int clientId=TCP.getLastID();
+
+    TCP.receiveRawBytes(clientId,(char*)tempBuff, TCP.getNumReceivedBytes(clientId));
+    cout<<TCP.getNumReceivedBytes(clientId)<<endl;
    
     
 }
@@ -164,18 +166,12 @@ void ofApp::draw(){
     cam.end();
     
     
-    //Buffer screenshot
-    blendImage.begin();
-    // now, take a "screenshot" of the frame
-    screenImage.grabScreen(0,0,ofGetWidth(),ofGetHeight());
-    screenImage.allocate(640, 480, OF_IMAGE_COLOR_ALPHA);
-    blendImage.end();
+   
     
-    ofColor(200,200,200,10);
+    
     ofDrawRectangle(300, 200, 100, 100);
-    blendImage.getTexture();
-    blendImage.draw(640, 480);
-    
+
+   
     ofDisableBlendMode();
 
     
@@ -205,9 +201,21 @@ void ofApp::draw(){
         if( !TCP.isClientConnected(i) )continue;
         
         // print image:
-        ofPixels imgReceived;
+        ofPixels img;
         
-        imgReceived.setFr
+        img.allocate(640, 480, GL_RGBA);
+        
+        img.set(tempBuff);
+        img.setFromPixels(const unsigned char *newPixels, size_t w, <#size_t h#>, <#size_t channels#>)
+        cout<<sizeof(tempBuff)<< endl;
+        
+        ofImage newImage;
+        newImage.setFromPixels(img);
+        newImage.allocate(640, 480,OF_IMAGE_COLOR_ALPHA);
+        
+        newImage.draw(ofGetWidth()/2-640/2,ofGetHeight()/2-480/2,640,480);
+        
+    
         
         // give each client its own color
         ofSetColor(255 - i*30, 255 - i * 20, 100 + i*40);

@@ -43,20 +43,18 @@ void Ball::update(){
     
     
     if (x<=0 || x>= ofGetWidth()-w){
-        
         dirX=-1*dirX;
-        
     }
     
     
     if (y<=0 || y>= ofGetHeight()-z){
-        
         dirY=-1*dirY;
-        
     }
     
+
     
     
+   
 
 }
 

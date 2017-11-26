@@ -33,9 +33,9 @@ public:
     
     ofImage imgClient;
     ofImage imgServer;
-    ofImage img;
+//    ofImage img;
     
-    ofPixels pixelsClient;
+//    ofPixels pixelsClient;
     
     float counter;
     int connectTime;

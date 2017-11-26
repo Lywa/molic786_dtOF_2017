@@ -28,6 +28,7 @@ public:
     ofxTCPClient tcpClient;
     
     char pixelsClient;
+    unsigned char* tempBuff;
     
     ofTrueTypeFont  mono;
     ofTrueTypeFont  monosm;
