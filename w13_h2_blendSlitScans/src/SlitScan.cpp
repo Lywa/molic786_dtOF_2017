@@ -19,7 +19,11 @@ SlitScan::SlitScan( int w, int h )
     height = h;
     
     // always pre-allocate FBOs
-    fbo.allocate( width, height);
+    fbo.allocate( width, height, GL_RGBA);
+    fbo.begin();
+    ofClear(0,0,0,0);
+    fbo.end();
+    
     
     lineNum = 0;
 }

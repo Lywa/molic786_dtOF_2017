@@ -27,26 +27,29 @@ void ofApp::setup(){
     
     mesh = ofMesh::plane(640, 480, 128, 96);
     meshExt = ofMesh::plane(640, 480, 128, 96);
+    
     //
     eventString = "Screen";
-    blendMode = OF_BLENDMODE_ADD;
+    blendMode = OF_BLENDMODE_SCREEN;
     
-    
-    
+    combinedFbo.allocate(640,480,GL_RGBA);
+    combinedMesh = mesh;
     
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
+    
     vid.update();// update web cam
     vidExt.update();
     
-    if (vid.isFrameNew())
+    if (vid.isFrameNew() || vidExt.isFrameNew())
     {
-        // update the slit scan
+        // update the slit scans
         
         slitScan.addLine(vid.getTexture());
+        slitScanExt.addLine(vidExt.getTexture());
         
         
         // update the mesh z based on slit scan brightness:
@@ -63,19 +66,11 @@ void ofApp::update(){
             float imgX    = ofMap(vert.x, -320, 320, 0, pix.getWidth()-1);
             float imgY    = ofMap(vert.y, -240, 240, 0, pix.getHeight()-1);
             ofColor color    = pix.getColor(imgX, imgY);
-            vert.z    = ofMap( color.getBrightness(), 0, 255, 0, 10);
+            vert.z    = ofMap( color.getBrightness(), 0, 255, 0, 20);
             
             // update vert z
             mesh.setVertex(i, vert);
         }
-    }
-    
-    
-    if (vidExt.isFrameNew())
-    {
-        // update the slit scan
-        
-        slitScanExt.addLine(vidExt.getTexture());
         
         
         // update the mesh z based on slit scan brightness:
@@ -92,53 +87,84 @@ void ofApp::update(){
             float imgX    = ofMap(vert.x, -320, 320, 0, pixExt.getWidth()-1);
             float imgY    = ofMap(vert.y, -240, 240, 0, pixExt.getHeight()-1);
             ofColor color    = pixExt.getColor(imgX, imgY);
-            vert.z    = ofMap( color.getBrightness(), 0, 255, 0, 10);
+            vert.z    = ofMap( color.getBrightness(), 0, 255, 0, 20);
             
             // update vert z
             meshExt.setVertex(i, vert);
         }
+        
+        /*
+        
+//        generate the combined fbo
+        
+        combinedFbo.begin();
+        ofClear(0,0,0,0);
+        
+        ofEnableBlendMode(blendMode);
+        slitScan.draw(0,0,640,480);
+        slitScanExt.draw(0,0,640,480);
+        ofDisableBlendMode();
+        
+        combinedFbo.end();
+        
+        ofPixels fboPix;
+        combinedFbo.readToPixels(fboPix);
+        
+        // loop through the mesh
+        for (int i=0; i<combinedMesh.getVertices().size(); i++)
+        {
+            
+            ofVec3f vert    = combinedMesh.getVertex(i);
+            
+            float imgX    = ofMap(vert.x, -320, 320, 0, pixExt.getWidth()-1);
+            float imgY    = ofMap(vert.y, -240, 240, 0, pixExt.getHeight()-1);
+            ofColor color    = pixExt.getColor(imgX, imgY);
+            vert.z    = ofMap( color.getBrightness(), 0, 255, 0, 20);
+            
+            // update vert z
+            combinedMesh.setVertex(i, vert);
+        }
+        
+        */
     }
     
     
     // increment scene rotation
     
-    //    rotation -= 0.1;
+//        rotation -= 0.1;
     
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     
+    ofEnableBlendMode(blendMode);
+    
+//    slitScan.draw(0,0, 640, 480);
+//    slitScanExt.draw(0,0, 640, 480);
+    
+    
+    
     // Draw first lawer. Video (Local)
-    //vid.draw(ofGetWidth()/2-640/2,ofGetHeight()/2-480/2,640,480);
+//    vidExt.draw(ofGetWidth()/2-640/2,ofGetHeight()/2-480/2,640,480);
     
     
     cam.begin();
-    ofEnableDepthTest();
-    
+//    ofEnableDepthTest();
+
     // rotate scene
     ofRotateX(rotation);
-    
+
     slitScanExt.bind();
     if (bDrawPoints)
         meshExt.drawVertices();
     else
         meshExt.draw();
     slitScanExt.unbind();
-    
+
     if (bDrawWireframe)
         meshExt.drawWireframe();
     
-    
-    
-    
-    //ofEnableBlendMode(OF_BLENDMODE_ALPHA);
-    ofEnableBlendMode(blendMode);
-    
-    //
-    //    // rotate scene
-    //    ofRotateX(rotation);
-    //
     
     
     slitScan.bind();
@@ -147,15 +173,24 @@ void ofApp::draw(){
     else
         mesh.draw();
     slitScan.unbind();
+
     
     if (bDrawWireframe)
         mesh.drawWireframe();
     
     
     
+//    combinedFbo.getTexture().bind();
+//    combinedMesh.draw();
+//    combinedFbo.getTexture().unbind();
+
     
-    ofDisableDepthTest();
+    
+    
+    
+//    ofDisableDepthTest();
     cam.end();
+    
     
     ofDisableBlendMode();
     

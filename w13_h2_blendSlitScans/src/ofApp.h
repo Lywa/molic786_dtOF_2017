@@ -25,6 +25,7 @@ public:
     
     ofVideoGrabber vid;
     ofVideoGrabber vidExt;
+//    RemoteVideoSource vidExt;
     
     SlitScan slitScan;
     //    SlitScanRetime slitScanRetime;
@@ -32,6 +33,11 @@ public:
     
     ofMesh mesh;
     ofMesh meshExt;
+    
+    ofMesh combinedMesh;
+    
+    ofFbo combinedFbo;
+    
     
     ofEasyCam cam;
     float rotation = 180;
