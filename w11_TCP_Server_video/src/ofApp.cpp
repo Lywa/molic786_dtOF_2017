@@ -10,10 +10,6 @@ void ofApp::setup(){
     lastSent = 0;
     
     
-    
-    
-    // VIDEO
-    
     ofBackground(0);
     
     ofSetFrameRate(30);
@@ -125,7 +121,7 @@ void ofApp::draw(){
     
     //ofEnableBlendMode(OF_BLENDMODE_ALPHA);
     
-    ofEnableBlendMode(blendMode);
+    /* ofEnableBlendMode(blendMode);
     
    
     
@@ -163,7 +159,7 @@ void ofApp::draw(){
     
     
     ofDisableDepthTest();
-    cam.end();
+    cam.end();*/
     
     
    
@@ -204,10 +200,10 @@ void ofApp::draw(){
         ofPixels img;
         
         img.allocate(640, 480, GL_RGBA);
-        
-        img.set(tempBuff);
-        img.setFromPixels(const unsigned char *newPixels, size_t w, <#size_t h#>, <#size_t channels#>)
+        //img.set(*tempBuff);
+        img.setFromPixels(const unsigned char *tempBuff, 640, 480, GL_RGBA);
         cout<<sizeof(tempBuff)<< endl;
+        
         
         ofImage newImage;
         newImage.setFromPixels(img);
