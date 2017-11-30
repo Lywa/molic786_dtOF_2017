@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "ofxNetwork.h"
+#include "SlitScan.hpp"
 
 class ofApp : public ofBaseApp{
     
@@ -37,4 +38,10 @@ public:
     string eventString;
     string timeString;
     
+    ofVideoGrabber vid;
+    
+    SlitScan slitScan;
+    
+    ofBlendMode blendMode;
+
 };

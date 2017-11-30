@@ -24,6 +24,25 @@ void ofApp::setup(){
     
     connectTime = 0;
     deltaTime = 0;
+    
+    // set document
+    
+    ofBackground(0);
+    ofSetWindowTitle("SlitScan Blending");
+    ofSetWindowShape(640, 480);
+    
+    ofSetFrameRate(30);
+    
+    ofDisableArbTex();    // map image textures properly to of3DPrimitive meshes
+    
+    // Set local camera
+    vid.listDevices();        // just prints all your video cameras to console
+    vid.setDeviceID(1);
+    
+    vid.setup(640,480);    // start default cam at 640x480
+    
+    
+    blendMode = OF_BLENDMODE_SCREEN;
 }
 
 //--------------------------------------------------------------
@@ -82,10 +101,26 @@ void ofApp::update(){
         }
         
     }
+    
+    vid.update();// update web cam
+    
+    if (vid.isFrameNew())
+    {
+        // update the slit scans
+        
+        slitScan.addLine(vid.getTexture());
+        
+    }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    
+    ofEnableBlendMode(blendMode);
+    
+    slitScan.draw(0,0, 640, 480);
+    
+  
     
     //ofSetColor(20, 20, 20);
     
@@ -122,6 +157,8 @@ void ofApp::keyPressed(int key){
             msgTx.clear();
         }
     }
+    
+      ofDisableBlendMode();
 }
 
 //--------------------------------------------------------------
