@@ -48,6 +48,8 @@ void ofApp::setup(){
 //--------------------------------------------------------------
 void ofApp::update(){
     
+    vid.update();// update web cam
+    
     //    pixelsClient = imgClient.getPixels();
     //    cout<< pixelsClient.getData() << endl;
     //pixelsClient.allocate(640, 480, OF_IMAGE_COLOR);
@@ -55,9 +57,11 @@ void ofApp::update(){
     //    img.setFromPixels(pixelsClient);
     
     
-    if(tcpClient.isConnected()){
+    if(tcpClient.isConnected() && vid.isFrameNew() ){
         // we are connected - lets try to receive from the server
         
+        
+        slitScan.addLine(vid.getTexture());
         
         //        RECEIVE / RX
         
@@ -77,8 +81,9 @@ void ofApp::update(){
         int size = imgClient.getPixels().getTotalBytes();
         tcpClient.sendRawBytes((char*)(imgClient.getPixels().getData()), size);
         
-        
-        
+        ofPixels line = vid.getPixels().getLine(0).asPixels();
+        int sizeLine = line.getTotalBytes();
+        tcpClient.sendRawBytes((char*)line.getData(), sizeLine);
         
         if(!msgTx.empty()){
             ofDrawBitmapString("sending:", 15, 55);
@@ -102,15 +107,15 @@ void ofApp::update(){
         
     }
     
-    vid.update();// update web cam
     
-    if (vid.isFrameNew())
-    {
-        // update the slit scans
-        
-        slitScan.addLine(vid.getTexture());
-        
-    }
+    
+//    if (vid.isFrameNew())
+//    {
+//        // update the slit scans
+//
+//        slitScan.addLine(vid.getTexture());
+//
+//    }
 }
 
 //--------------------------------------------------------------
@@ -135,6 +140,8 @@ void ofApp::draw(){
     }else{
         ofDrawBitmapString("status: server not found. launch server app and check ports!\n\nreconnecting in "+ofToString( (5000 - deltaTime) / 1000 )+" seconds", 15, 55);
     }
+    
+    ofDisableBlendMode();
 }
 
 

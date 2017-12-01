@@ -33,10 +33,12 @@ public:
     
     void setLineNum(int ln) { lineNum = ofClamp(ln, 0,480); }
     
+    int lineNum;        // which line to draw to
+    
 private:
     
     int width, height;
-    int lineNum;        // which line to draw to
+    
     
     
 };
