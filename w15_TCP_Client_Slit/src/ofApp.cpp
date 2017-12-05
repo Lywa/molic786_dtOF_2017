@@ -20,7 +20,7 @@ void ofApp::setup(){
     tcpClient.setup("127.0.0.1", 11999);
     
     // optionally set the delimiter to something else.  The delimiter in the client and the server have to be the same
-    tcpClient.setMessageDelimiter("\n");
+//    tcpClient.setMessageDelimiter("\n");
     
     connectTime = 0;
     deltaTime = 0;
@@ -57,7 +57,7 @@ void ofApp::update(){
     //    img.setFromPixels(pixelsClient);
     
     
-    if(tcpClient.isConnected() && vid.isFrameNew() ){
+    if(tcpClient.isConnected() || vid.isFrameNew() ){
         // we are connected - lets try to receive from the server
         
         
@@ -78,12 +78,22 @@ void ofApp::update(){
         //        char* rawBytes = line_buffer.getData();
         //        tcpClient.sendRawBytes(rawBytes, pixelsClient.getTotalBytes());
         
-        int size = imgClient.getPixels().getTotalBytes();
-        tcpClient.sendRawBytes((char*)(imgClient.getPixels().getData()), size);
-        
-        ofPixels line = vid.getPixels().getLine(0).asPixels();
+//        int size = imgClient.getPixels().getTotalBytes();
+//        tcpClient.sendRawBytes((char*)(imgClient.getPixels().getData()), size);
+//
+        int lineN= slitScan.lineNum;
+       ofPixels line = vid.getPixels().getLine(lineN).asPixels();
         int sizeLine = line.getTotalBytes();
-        tcpClient.sendRawBytes((char*)line.getData(), sizeLine);
+       
+        tcpClient.send(ofToString(lineN));
+        cout<<ofToString(lineN)<<endl;
+        
+       // tcpClient.send(ofToString(vid.getPixels().getLine(lineN)));
+        
+        //tcpClient.sendRawBytes((char*)line.getData(), sizeLine);
+        
+//
+        
         
         if(!msgTx.empty()){
             ofDrawBitmapString("sending:", 15, 55);

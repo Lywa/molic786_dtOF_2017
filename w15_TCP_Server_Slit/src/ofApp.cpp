@@ -6,7 +6,7 @@ void ofApp::setup(){
     // setup the server to listen on 11999
     TCP.setup(11999);
     // optionally set the delimiter to something else.  The delimiter in the client and the server have to be the same, default being [/TCP]
-    TCP.setMessageDelimiter("\n");
+//    TCP.setMessageDelimiter("\n");
     lastSent = 0;
     
     tempBuff = new unsigned char[buffSize];
@@ -59,16 +59,24 @@ void ofApp::update(){
         int clientId=i;
         
         
-        TCP.receiveRawBytes(clientId, (char*)tempBuff, buffSize);
+//        TCP.receiveRawBytes(clientId, (char*)tempBuff, buffSize);
+//
+//        //    same as this:
+//        //    TCP.receiveRawBytes(clientId, (char*)img.getPixels().getData(), img.getPixels().getTotalBytes());
+//
+//        int nRcvd = TCP.getNumReceivedBytes(clientId);
+//        //cout<<nRcvd<<endl;
+//
+//        if (nRcvd==buffSize)
+//            texture.loadData(tempBuff, 320, 240, GL_RGB);
+
+        string rcvd_msg = TCP.receive(clientId);
+        int lineN= ofToInt(rcvd_msg);
+        cout<<lineN<<endl;
         
-        //    same as this:
-        //    TCP.receiveRawBytes(clientId, (char*)img.getPixels().getData(), img.getPixels().getTotalBytes());
+        TCP.receiveRawBytes(clientId,(char*)tempBuff2,buffSize2);
+        cout<<TCP.getNumReceivedBytes(clientId)<<endl;
         
-        int nRcvd = TCP.getNumReceivedBytes(clientId);
-        cout<<nRcvd<<endl;
-        
-        if (nRcvd==buffSize)
-            texture.loadData(tempBuff, 320, 240, GL_RGB);
     }
     
     

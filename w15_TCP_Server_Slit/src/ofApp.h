@@ -28,7 +28,9 @@ public:
     
     char pixelsClient;
     unsigned char* tempBuff;
+    unsigned char* tempBuff2;
     int buffSize = 320*240*3;
+    int buffSize2= 320*3;
     
     ofTexture texture;
     
