@@ -17,6 +17,13 @@ public:
 
 	pbNetworkReceiver receiver;	//Network receiver
 	int frameNum;
+    
+    
+    ofVideoGrabber     grabber;        // Video grabber
+    
+    pbNetworkSenderSync sender;        // Network sender
+    int lineNum;
+    
 
 	void keyPressed  (int key);
 	void keyReleased(int key);

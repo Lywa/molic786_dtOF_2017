@@ -56,6 +56,14 @@ public:
 
 	pbNetworkSenderSync sender;		// Network sender
 	int lineNum;						// num of line
+    
+    
+    ofPixels linePix;
+    ofImage image;        // Received image
+    
+    pbNetworkReceiver receiver;    //Network receiver
+    int frameNum;
+    
 
 	void keyPressed  (int key);
 	void keyReleased(int key);

@@ -13,7 +13,23 @@ void ofApp::setup(){
 	//Starting network
 	int port = 12345;
 	int packetSize = 1024;
+   
+    string addr = "127.0.0.1";
+    
+    // ----  SEND ------
+    
+    sender.setup( addr, port, packetSize );
+    lineNum = 0;
+    
+    //Starting camera
+    grabber.listDevices();
+    grabber.setDeviceID(1);
+    grabber.setup(w,h);
 
+    
+    
+    
+    // ---- RECEIVE -----
 	receiver.setup(port, packetSize, true);
 	frameNum = 0;
 	
@@ -23,7 +39,34 @@ void ofApp::setup(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
-
+    // ----  SEND ------
+    
+    sender.update();
+    
+    grabber.update();    //Update grabber state
+    
+    if (grabber.isFrameNew()){    //Check for new frame
+        
+        //Send frame via network
+        //        unsigned char * pixels = grabber.getPixels().getData();
+        //        sender.send( pixels, size, lineNum );
+        
+        // Send single line over network
+        unsigned char * pixels = grabber.getPixels().getData();
+        
+        int lineStartIndex = w * 3 * lineNum;
+        unsigned char * line = pixels + lineStartIndex;
+        
+        sender.send( line, w * 3, lineNum);
+        
+        lineNum++;
+        if (lineNum >= h) lineNum = 0;
+    }
+    
+    
+    // ---- RECEIVE -----
+    
+    
 	// Check if new frame was received automatically
 	// (the receiver runs in a separate thread)
 
@@ -63,6 +106,19 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    
+    ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+    // ----  SEND ------
+    
+    //Draw camera image
+    ofSetColor( 255 );
+    grabber.draw( 20, 20 );
+    
+    //Print line num
+    ofSetColor( 0 );
+    ofDrawBitmapString( "Line num = " + ofToString( lineNum ), 20, h + 40 );
+    
+    // ---- RECEIVE -----
 	ofBackground( 200, 200, 255 );
 
 	//Draw received image
@@ -74,6 +130,8 @@ void ofApp::draw(){
 	//Print frame id and FPS
 	ofSetColor( 0 );
 	ofDrawBitmapString( "Received frame/line num = " + ofToString( frameNum ), 20, h + 40 );
+    
+    ofDisableBlendMode();
 }
 
 //--------------------------------------------------------------
