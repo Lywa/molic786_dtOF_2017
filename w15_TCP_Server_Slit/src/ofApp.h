@@ -31,6 +31,8 @@ public:
     unsigned char* tempBuff2;
     int buffSize = 320*240*3;
     int buffSize2= 320*3;
+    unsigned char* tempBuff3;
+    int buffSize3= 640*3;
     
     ofTexture texture;
     

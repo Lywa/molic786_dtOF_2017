@@ -70,12 +70,20 @@ void ofApp::update(){
 //        if (nRcvd==buffSize)
 //            texture.loadData(tempBuff, 320, 240, GL_RGB);
 
-        string rcvd_msg = TCP.receive(clientId);
-        int lineN= ofToInt(rcvd_msg);
-        cout<<lineN<<endl;
         
-        TCP.receiveRawBytes(clientId,(char*)tempBuff2,buffSize2);
-        cout<<TCP.getNumReceivedBytes(clientId)<<endl;
+//        ___________
+        
+//        string rcvd_msg = TCP.receive(clientId);
+//        int lineN= ofToInt(rcvd_msg);
+//        cout<<lineN<<endl;
+//
+//        TCP.receiveRawBytes(clientId,(char*)tempBuff2,buffSize2);
+//        cout<<TCP.getNumReceivedBytes(clientId)<<endl;
+//        __________
+//
+        
+        TCP.receiveRawBytes(clientId,(char*) tempBuff3,buffSize3);
+        cout<<tempBuff3<<endl;
         
     }
     
@@ -107,13 +115,13 @@ void ofApp::draw(){
     // TCP
     
     
-    ofSetHexColor(0xDDDDDD);
+    //ofSetHexColor(0xDDDDDD);
     ofDrawBitmapString("TCP SERVER Example \n\nconnect on port: "+ofToString(TCP.getPort()), 10, 20);
     
-    ofSetHexColor(0x000000);
+    //ofSetHexColor(0x000000);
     // ofDrawRectangle(10, 60, ofGetWidth()-24, ofGetHeight() - 65 - 15);
     
-    ofSetHexColor(0xDDDDDD);
+    //ofSetHexColor(0xDDDDDD);
     
     // for each connected client lets get the data being sent and lets print it to the screen
     for(unsigned int i = 0; i < (unsigned int)TCP.getLastID(); i++){
@@ -139,7 +147,7 @@ void ofApp::draw(){
         texture.draw(ofGetWidth()/2-640/2,ofGetHeight()/2-480/2,640,480);
         
         // give each client its own color
-        ofSetColor(255 - i*30, 255 - i * 20, 100 + i*40);
+//        ofSetColor(255 - i*30, 255 - i * 20, 100 + i*40);
         
         // calculate where to draw the text
         int xPos = 15;

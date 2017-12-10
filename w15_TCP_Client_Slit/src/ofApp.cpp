@@ -79,18 +79,32 @@ void ofApp::update(){
         //        tcpClient.sendRawBytes(rawBytes, pixelsClient.getTotalBytes());
         
 //        int size = imgClient.getPixels().getTotalBytes();
-//        tcpClient.sendRawBytes((char*)(imgClient.getPixels().getData()), size);
+        //tcpClient.sendRawBytes((char*)(imgClient.getPixels().getData()), size);
 //
-        int lineN= slitScan.lineNum;
-       ofPixels line = vid.getPixels().getLine(lineN).asPixels();
-        int sizeLine = line.getTotalBytes();
-       
-        tcpClient.send(ofToString(lineN));
-        cout<<ofToString(lineN)<<endl;
+//        ________________
         
-       // tcpClient.send(ofToString(vid.getPixels().getLine(lineN)));
+//        int lineN= slitScan.lineNum;
+//       ofPixels line = vid.getPixels().getLine(lineN).asPixels();
+//        int sizeLine = line.getTotalBytes();
+//
+//        tcpClient.send(ofToString(lineN));
+//        cout<<ofToString(lineN)<<endl;
+//        __________________--
         
-        //tcpClient.sendRawBytes((char*)line.getData(), sizeLine);
+       //tcpClient.send(ofToString(.getLine(lineN)));
+        
+        //tcpClient.sendRawBytes((char*)(vid.getPixels()).getData(),vid.getPixels().getTotalBytes());
+        
+        
+        tcpClient.sendRawBytes((char*)(vid.getPixels()).getData(),640*3);
+        
+        for (int i=0; i<9; i++){
+          cout <<  vid.getPixels().getData()[i];
+        }
+        
+        cout <<endl;
+        
+        
         
 //
         
