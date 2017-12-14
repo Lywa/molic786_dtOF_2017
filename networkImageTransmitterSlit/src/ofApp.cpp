@@ -7,6 +7,10 @@ void ofApp::setup(){
     
     ofBackground(0);
 	// ask user for IP address and ports we'll use for connections
+    
+    
+    ofDisableArbTex();    // map image textures properly to of3DPrimitive meshes
+    
 	
 	remoteIP = ofSystemTextBoxDialog("input remote IP (ex. 127.0.0.1) - where to send our image data");
 	
@@ -47,6 +51,12 @@ void ofApp::setup(){
     slitScan = SlitScan(640, 480);  // create slit scan
     
     blendMode = OF_BLENDMODE_SCREEN;
+    
+    // setup the mesh
+    
+    mesh = ofMesh::plane(640, 480, 128, 96);
+    meshExt = ofMesh::plane(640, 480, 128, 96);
+    
 
 }
 
@@ -61,6 +71,26 @@ void ofApp::update(){
         
         slitScan.addLine(grabber.getTexture());
         
+        // grab the pixels to read color
+        ofPixels pix = slitScan.getPixels();
+        
+        // loop through the mesh
+        for (int i=0; i<mesh.getVertices().size(); i++)
+            
+            
+        {
+            
+            ofVec3f vert    = mesh.getVertex(i);
+            
+            float imgX    = ofMap(vert.x, -320, 320, 0, pix.getWidth()-1);
+            float imgY    = ofMap(vert.y, -240, 240, 0, pix.getHeight()-1);
+            ofColor color    = pix.getColor(imgX, imgY);
+            vert.z    = ofMap( color.getBrightness(), 0, 255, 0, tex);
+            
+            // update vert z
+            mesh.setVertex(i, vert);
+        }
+        
     }
 
 	
@@ -74,32 +104,27 @@ void ofApp::update(){
 		
 		if ( receiver.size() == bytesPerLine ) {	// data size match for 1 line
 			
-			remoteLineNum = receiver.frame();
-			// frame() returns the latest "frame ID" received (we are using this for line number ID)
-			
-			
-			// if this was a whole image we could copy it directly:
-			//		remoteImg.setFromPixels(  &receiver.data()[0], w, h, OF_IMAGE_COLOR );
-			
-			
-			// set received data to pixels line
-			
-			remoteLinePix.setFromPixels( &receiver.data()[0], w, 1, 3);	// data, width, height, num channels
-			
-			/* -- 
-			 note: receiver.data() returns a vector -
-			 To get the data array at index i from a vector, you can use &vector[i]
-			 -- */
-			
-			// copy pixel data from line pixels to ofImage:
-			
-			int lineStart			= remoteLineNum * bytesPerLine;		// the start index of this line in the image data
-			unsigned char * imgPtr	= remoteImg.getPixels().getData() + lineStart;
-			
-			// copy the memory block from the line pixel data to image data
-			memcpy(imgPtr, remoteLinePix.getData(), bytesPerLine);
-			
-			remoteImg.update();	// update the image texture
+            updateRemoteImg();
+            
+            
+            // loop through the mesh
+            for (int i=0; i<meshExt.getVertices().size(); i++)
+            {
+                
+                ofVec3f vert    = meshExt.getVertex(i);
+                
+                float imgX    = ofMap(vert.x, -320, 320, 0, remoteLinePix.getWidth()-1);
+                float imgY    = ofMap(vert.y, -240, 240, 0, remoteLinePix.getHeight()-1);
+                ofColor color    = remoteLinePix.getColor(imgX, imgY);
+                vert.z    = ofMap( color.getBrightness(), 0, 255, 0, tex2);
+                
+                // update vert z
+                meshExt.setVertex(i, vert);
+            }
+            
+        
+            
+            // UPDATE THE LOCAL SLIT SCAN HERE
 			
 		}
 		else if ( receiver.size() != 0 ) {
@@ -143,11 +168,48 @@ void ofApp::update(){
 
 }
 
+void ofApp::updateRemoteImg()
+{
+    
+    remoteLineNum = receiver.frame();
+    // frame() returns the latest "frame ID" received (we are using this for line number ID)
+    
+    
+    // if this was a whole image we could copy it directly:
+    //        remoteImg.setFromPixels(  &receiver.data()[0], w, h, OF_IMAGE_COLOR );
+    
+    
+    // set received data to pixels line
+    
+    remoteLinePix.setFromPixels( &receiver.data()[0], w, 1, 3);    // data, width, height, num channels
+    
+    /* --
+     note: receiver.data() returns a vector -
+     To get the data array at index i from a vector, you can use &vector[i]
+     -- */
+    
+    // copy pixel data from line pixels to ofImage:
+    
+    int lineStart            = remoteLineNum * bytesPerLine;        // the start index of this line in the image data
+    unsigned char * imgPtr    = remoteImg.getPixels().getData() + lineStart;
+    
+    // copy the memory block from the line pixel data to image data
+    memcpy(imgPtr, remoteLinePix.getData(), bytesPerLine);
+    
+    remoteImg.update();    // update the image texture
+    
+}
+
 //--------------------------------------------------------------
 void ofApp::draw(){
 	
     
     ofEnableBlendMode(blendMode);
+    
+    ofRotateX(rotation);
+
+    
+    
 	// draw local
 	
 //    ofSetColor( 200, 255, 200 );
@@ -155,9 +217,14 @@ void ofApp::draw(){
 //
 	// draw webcam image
     
-  
+    cam.begin();
     
-    slitScan.draw(20,20, 640, 480);
+//    slitScan.draw(20,20, 640, 480);
+    
+    slitScan.bind();
+
+        mesh.draw();
+    slitScan.unbind();
 	
 	//ofSetColor( 255 );
 	//grabber.draw( 20, 20 );
@@ -181,15 +248,25 @@ void ofApp::draw(){
 
     // draw received image
 //    ofSetColor( 255 );
-    remoteImg.draw( 20, 20 );
+    
+    
+//    remoteImg.draw( 20, 20 );
+    
+    remoteImg.getTexture().bind();
+    
+        meshExt.draw();
+    
+    remoteImg.getTexture().unbind();
 
+    
 //
     // print remote line num and FPS
 //    ofSetColor( 0 );
     ofDrawBitmapString( "Remote line num = " + ofToString( remoteLineNum ), 20, h + 40 );
 
     ofDrawBitmapString( "Receiving on local port: " + ofToString( localPort ), 20, h + 60 );
-
+    
+    cam.end();
   ofDisableBlendMode();
 	
 
@@ -202,6 +279,27 @@ void ofApp::keyPressed(int key){
 
 //--------------------------------------------------------------
 void ofApp::keyReleased(int key){
+    
+    if (key == 32){ // also ' ' for space as a character ASCI
+        
+        
+        if (!textureOn){
+            
+            tex= 100;
+            tex2= -100;
+            
+            
+        }
+        if(textureOn){
+            
+            tex= 10;
+            tex2= 10;
+            
+            
+        }
+        textureOn= !textureOn;
+        cout<<textureOn<<endl;
+    }
 
 }
 
@@ -222,6 +320,23 @@ void ofApp::mousePressed(int x, int y, int button){
 
 //--------------------------------------------------------------
 void ofApp::mouseReleased(int x, int y, int button){
+    
+    if (!textureOn){
+        
+        tex= 100;
+        tex2= -100;
+        
+        
+    }
+    if(textureOn){
+        
+        tex= 10;
+        tex2= 10;
+        
+        
+    }
+    textureOn= !textureOn;
+    cout<<textureOn<<endl;
 
 }
 

@@ -10,6 +10,8 @@ public:
 	void setup();
 	void update();
 	void draw();
+    
+    void updateRemoteImg();
 
 	void keyPressed(int key);
 	void keyReleased(int key);
@@ -42,7 +44,17 @@ public:
     ofVideoGrabber vid;
     SlitScan slitScan;
     
+    ofMesh mesh;
+    ofMesh meshExt;
+    
+    float rotation = 90;
     
     ofBlendMode blendMode;
+    
+    ofEasyCam cam;
+    
+    int tex= 10;
+    int tex2= 10;
 	
+    bool textureOn = false;
 };
