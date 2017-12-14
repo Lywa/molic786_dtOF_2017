@@ -105,7 +105,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     
-    ofEnableBlendMode(OF_BLENDMODE_SCREEN);
+    
 	
      // ----  SEND ------
     
@@ -118,6 +118,8 @@ void ofApp::draw(){
 	//Print line num
 	ofSetColor( 0 );
 	ofDrawBitmapString( "Line num = " + ofToString( lineNum ), 20, h + 40 );
+    
+    ofEnableBlendMode(OF_BLENDMODE_SCREEN);
     
     // ---- RECEIVE -----
     

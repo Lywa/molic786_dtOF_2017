@@ -62,6 +62,8 @@ void ofApp::update(){
         
         // loop through the mesh
         for (int i=0; i<mesh.getVertices().size(); i++)
+            
+            
         {
             
             ofVec3f vert    = mesh.getVertex(i);
@@ -77,6 +79,8 @@ void ofApp::update(){
         
         
         // update the mesh z based on slit scan brightness:
+        
+        //remoteImg
         
         // grab the pixels to read color
         ofPixels pixExt = slitScanExt.getPixels();
@@ -116,6 +120,8 @@ void ofApp::draw(){
    
     ofRotateX(rotation);
     
+    
+//    remoteImg
     slitScanExt.bind();
     if (bDrawPoints)
         meshExt.drawVertices();
