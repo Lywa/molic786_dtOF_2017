@@ -1,6 +1,6 @@
-#Co-Individuality
+# Co-Individuality
 
-Carla Molins Pitarch
+### Carla Molins Pitarch
 
 
 ## CONCEPT 
@@ -20,10 +20,12 @@ Also, if this could be possible thanks to technology, can technologies make pres
 
 So, what technology am I using for that?
 
-My answer, again, is a telematics experience. To achieve that, I’ll be using OpenFrameworks networked through two different computers with cameras that send bytes of the image to each other, in order to get a blended and distorted output. Both cameras will get real-time images from each side and using a Slit-scan technique decompose each line, send it to the other side and blend it with the line from the other side. The final result will be a combination of both images- people -individuals.
+My answer, again, is a **telematics experience**. To achieve that, I’ll be using OpenFrameworks networked through two different computers with cameras that send bytes of the image to each other, in order to get a blended and distorted output. Both cameras will get real-time images from each side and using a Slit-scan technique decompose each line, send it to the other side and blend it with the line from the other side. The final result will be a combination of both images- people -individuals.
 
 The complete set of the installation consist on two different laptops mirroring the image on an external camera and webcam that will be used as a support and as well as a visual clue for the user.
 
+
+For creating the final OpenFrameworks application:
 
 My first step was working on the visual different explorations while I was coding that on open frameworks. My main trouble here was to sync both slitScan systems (two different cameras with different frame-rates).
 
