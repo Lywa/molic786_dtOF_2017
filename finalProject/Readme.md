@@ -52,3 +52,6 @@ Finally, thanks to Tyler’s technical help the application was able to send ord
 ### Link to pdf presentation with video, pictures and process.
  
 https://drive.google.com/open?id=1jLxR_QEEU2vm6Z40seVv3iekhyFIbDwN
+
+https://vimeo.com/246918365 --> Co-individuality complete video.
+https://vimeo.com/247718325 --> TCP Network sending Image.
